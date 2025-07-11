@@ -1,6 +1,6 @@
 # Rotation Trick JAX
 
-A JAX implementation of the [rotation trick](https://arxiv.org/abs/2410.06424) for improved gradient estimation in VQ-VAEs.
+A jax implementation of the [rotation trick](https://arxiv.org/abs/2410.06424) for improved gradient estimation in VQ-VAEs.
 
 
 ## Installation
