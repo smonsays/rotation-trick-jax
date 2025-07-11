@@ -19,6 +19,9 @@ uv add git+https://github.com/smonsays/rotation-trick-jax.git
 
 ## Usage
 
+The rotate_to function applies the rotation with appropriate internal gradient stopping.
+It works with arbitrary tensor shapes, treating leading dimensions as batch dimensions.
+
 ```python
 import jax.numpy as jnp
 from rotation_trick_jax import rotate_to
@@ -31,5 +34,3 @@ target = jnp.array([[2.0, 1.0, 4.0], [3.0, 2.0, 1.0]])
 result = rotate_to(source, target)
 print(result.shape)  # (2, 3)
 ```
-
-The function works with arbitrary tensor shapes, treating leading dimensions as batch dimensions.

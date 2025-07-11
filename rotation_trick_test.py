@@ -29,7 +29,7 @@ import torch
 from absl.testing import absltest
 from absl.testing import parameterized
 
-from rotation_trick_jax import rotation_trick
+from rotation_trick_jax import rotate_to
 
 jax.config.parse_flags_with_absl()
 jax.config.update("jax_numpy_rank_promotion", "raise")
@@ -91,7 +91,7 @@ class RotationTrickTest(chex.TestCase):
         tgt = jax.random.normal(key2, (8, 32))
 
         def loss_fn(src_param):
-            result = rotation_trick.rotate_to(src_param, tgt)
+            result = rotate_to(src_param, tgt)
             return jnp.sum(result**2)
 
         grad_fn = jax.grad(loss_fn)
@@ -113,11 +113,11 @@ class RotationTrickTest(chex.TestCase):
         src = jax.random.normal(key1, (*batch_shapes, dim))
         tgt = jax.random.normal(key2, (*batch_shapes, dim))
 
-        result = self.variant(rotation_trick.rotate_to)(src, tgt)
+        result = self.variant(rotate_to)(src, tgt)
 
         # Property 1: When src == tgt, result should be close to tgt
         same_vectors = jnp.ones((4, dim))
-        result_same = self.variant(rotation_trick.rotate_to)(same_vectors, same_vectors)
+        result_same = self.variant(rotate_to)(same_vectors, same_vectors)
         chex.assert_trees_all_close(result_same, same_vectors, atol=1e-5)
 
         # Property 2: Result should have similar magnitude distribution as target
@@ -149,7 +149,7 @@ class RotationTrickTest(chex.TestCase):
         with torch.no_grad():
             result_torch = rotate_to_official(src_torch.clone(), tgt_torch.clone())
 
-        result_jax = self.variant(rotation_trick.rotate_to)(src_jax, tgt_jax)
+        result_jax = self.variant(rotate_to)(src_jax, tgt_jax)
 
         chex.assert_trees_all_close(
             np.array(result_jax), result_torch.numpy(), atol=1e-5
@@ -157,7 +157,7 @@ class RotationTrickTest(chex.TestCase):
 
         # Test backward pass (gradients)
         def jax_loss_fn(src):
-            result = rotation_trick.rotate_to(src, tgt_jax)
+            result = rotate_to(src, tgt_jax)
             return jnp.sum(result)
 
         jax_grad_fn = jax.grad(jax_loss_fn)
