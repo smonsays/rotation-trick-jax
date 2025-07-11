@@ -1,0 +1,17 @@
+[project]
+name = "rotation-trick-jax"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "einops>=0.8.1",
+    "jax>=0.6.2",
+    "jaxtyping>=0.3.2",
+]
+
+[dependency-groups]
+dev = [
+    "chex>=0.1.89",
+    "torch>=2.7.1",
+]
