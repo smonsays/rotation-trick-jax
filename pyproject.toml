@@ -1,9 +1,15 @@
+
 [project]
 name = "rotation-trick-jax"
 version = "0.1.0"
-description = "Add your description here"
+description = "JAX implementation of the rotation trick for gradient estimation in VQ-VAEs"
 readme = "README.md"
 requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Simon Schug"},
+]
+keywords = ["jax", "rotation-trick"]
 dependencies = [
     "einops>=0.8.1",
     "jax>=0.6.2",
@@ -15,3 +21,7 @@ dev = [
     "chex>=0.1.89",
     "torch>=2.7.1",
 ]
+
+[build-system]
+requires = ["uv_build>=0.7.20,<0.8"]
+build-backend = "uv_build"

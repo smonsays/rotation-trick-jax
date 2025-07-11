@@ -386,7 +386,7 @@ wheels = [
 [[package]]
 name = "rotation-trick-jax"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "einops" },
     { name = "jax" },

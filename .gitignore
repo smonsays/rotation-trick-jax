@@ -6,6 +6,10 @@ dist/
 wheels/
 *.egg-info
 
+# Build artifacts
+*.tar.gz
+*.whl
+
 # Virtual environments
 .venv
 
